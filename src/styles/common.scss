@@ -1,0 +1,312 @@
+input[type=text],input[type=password]{
+  border:1px solid #9e9e9e;
+  border-radius:5px;
+  height:40px;
+  font-size:15px;
+  color:#000;
+  background: #fff;
+  padding:0 15px;
+  font-family: 'Noto Sans KR', sans-serif;
+  &::placeholder{
+    color:#ddd
+  }
+}
+button{
+  border:0;
+}
+caption{
+  font-size:0;
+}
+.contents-wrap{
+  background: #f3f3f3;
+  min-height:calc(100% - 50px);
+  width: 100%;
+  position: relative;
+}
+.contents-container{
+  padding:50px 40px;  
+}
+.layout {
+  display: flex;
+  min-width:1280px !important;
+  & .layout-right {
+    width: 100%;
+  }
+}
+.location{
+  & .v-icon{
+    opacity:0.5;
+    vertical-align: -1px !important;
+  }
+  & .page{
+    color:#fff;
+    display:inline-block;
+    position:relative;
+    margin-right:20px;
+    &:after{
+      content:'>';
+      position:absolute;
+      right:-15px;
+      top:0;
+    }
+    &:last-child{
+      &:after{
+        content:'';
+      }
+    }
+  }
+}
+.title-header{
+  height:200px;
+  padding:50px 0 0 40px;
+  position:relative;
+  overflow:hidden;
+  & h1{
+    color:#fff;
+    font-size:4rem;
+    margin:0 0 0 25px;
+  }
+  &.blue{
+    background:#4994ec;
+  }
+  &.orange{
+    background: #ec9235;
+  }
+  &.purple2{
+    background: #7d67cc !important;
+  }
+  &.green{
+    background: #5fcc6e !important;
+  }
+  
+  & .mdi-book-open-outline{
+    position:absolute !important;
+    top:-20px;
+    right:100px;
+    color:#fff !important;
+    font-size:230px !important;
+    opacity:0.1;
+  }
+  & .mdi-office-building-marker-outline{
+    position:absolute !important;
+    top:10px;
+    right:100px;
+    color:#fff !important;
+    font-size:180px !important;
+    opacity:0.1;
+  }
+  & .mdi-television-play{
+    position:absolute !important;
+    top:10px;
+    right:100px;
+    color:#fff !important;
+    font-size:180px !important;
+    opacity:0.1;
+  }
+  & .mdi-account-box-multiple{
+    position:absolute !important;
+    top:10px;
+    right:100px;
+    color:#fff !important;
+    font-size:180px !important;
+    opacity:0.1;
+  }
+  & .mdi-account-multiple-plus-outline{
+    position:absolute !important;
+    top:10px;
+    right:100px;
+    color:#fff !important;
+    font-size:180px !important;
+    opacity:0.1;
+  }
+}
+.white-shadow-box-round{
+  background:#fff;
+  border-radius:10px;
+  padding:30px;
+  @include boxshadow(0px, 3px, 6px, 0px,rgba(0,0,0,0.05))
+}
+.tbl-basic{
+  border:1px solid rgb(216, 216, 216);
+  & tr{
+      &:nth-child(odd){
+          & td{
+              background: #f5f5f5;
+          }
+      }
+  }
+  & th{
+       background: #fff;
+       @include NotoSans(1.3,700,#5c6066);
+       border-bottom:1px solid #2d86f6;
+       height:60px;
+  }
+  & td{
+      text-align:center;
+      height:50px;
+      @include NotoSans(1.3,400,#5c6066);
+      background: #fff;
+      &.subject{
+        text-align: left;
+      }
+      & a{
+        color:#000;
+        &:hover{
+          color:rgb(28, 98, 189)
+        }
+      }
+  }
+}
+.tbl-info-wrap{
+  border:1px solid #ddd;
+  border-radius:10px;
+  overflow: hidden;
+}
+.tbl-info{
+  & tr{
+    & th{
+      border-right:1px solid #ddd;
+      border-bottom:1px solid #ddd;
+      padding:15px;
+      background: #f6f3ff;
+    }
+    & td{
+      border-bottom:1px solid #ddd;
+      background:#fff;
+      padding:15px;
+    }
+    &:last-child{
+      & th{
+        border-bottom:0;
+      }
+      & td {
+        border-bottom:0;
+      }
+    }
+  }
+}
+.btn-blue{
+  background: #3265ba;
+  color:#fff !important;
+  font-size:1.6rem;
+  border-radius: 5px;
+  height:40px;
+  line-height:40px;
+  padding:0 20px;
+}
+.btn-search{
+  height:40px !important;
+  width: 43px !important;
+  min-width:43px !important;
+  border-radius: 5px;
+  @include gradientY(#f07305,#f0b005);
+  padding:0 10px;
+  & .v-icon{
+    color:#fff !important;
+  }  
+}
+.btn-filter{
+  height:40px !important;
+  width: 43px !important;
+  min-width:43px !important;
+  border-radius: 5px;
+  background: #ccc !important;
+  padding:0 10px;
+  & .v-icon{
+    color:#fff !important;
+  }
+  &.active{
+    background: rgb(63, 90, 207) !important;
+  }
+}
+
+
+//vuetify custom
+.v-select__selections{
+  input{
+    border:0 !important;
+  }
+}
+.v-list-item--dense .v-list-item__title, .v-list-item--dense .v-list-item__subtitle, .v-list--dense .v-list-item .v-list-item__title, .v-list--dense .v-list-item .v-list-item__subtitle{
+  font-size:1.4rem !important;
+  line-height: 1.4rem !important;
+}
+.v-select.v-input--dense .v-select__selection--comma,.v-text-field--outlined.v-input--dense .v-label{
+font-size:1.5rem !important;
+z-index:2;
+}
+.v-btn__content{
+  font-size:1.4rem !important;
+  letter-spacing: -1px;
+}
+.vm--modal{
+  border-radius:15px !important;
+}
+.ck-indigo .v-input--selection-controls__ripple:before{color: #3f51b5!important;}
+.ck-indigo .v-icon{color: #3f51b5!important;}
+.checkbox-align{
+  & .v-input__slot {
+    margin-bottom: 0 !important;
+  }
+  & .v-input--selection-controls__input {
+    margin: 0 auto !important;
+  }
+}
+.lecture-open{
+  .v-stepper {
+    box-shadow: inherit !important;
+  }
+  .theme--light.v-stepper {
+    background-color: inherit !important;
+  }
+  .v-stepper--alt-labels .v-stepper__header {
+    padding: 0 300px !important;
+  }
+  .v-stepper__step__step {
+    height: 100px !important;
+    min-width: 100px !important;
+    width: 100px !important;
+  }
+  .v-stepper__step__step,
+  .v-stepper__step__step .v-icon.v-icon {
+    font-size: 40px !important;
+  }
+  .v-stepper--alt-labels .v-stepper__header .v-divider {
+    margin: 70px 0px 0;
+    align-self: flex-start;
+  }
+  .theme--light.v-sheet {
+    background-color: inherit !important;
+  }
+}
+#dateRange {
+	font-size: 20px !important;
+	border: 0 !important;
+}
+.theme--light.v-text-field--outlined:not(.v-input--is-focused):not(.v-input--has-state) > .v-input__control > .v-input__slot fieldset{
+  height:46px;
+}
+.v-select__selections input{
+  max-height: 22px !important;
+}
+.multi-select .v-select__slot .v-select__selections + .v-input__append-inner .v-input__icon.v-input__icon--append{
+height:9px;
+}
+.multi-select .v-select__selection{
+  margin: 0px 4px 7px 0;
+}
+.v-list-item__title{
+  font-size:1.6rem !important;
+}
+.v-application--is-ltr .v-list-item__action:first-child, .v-application--is-ltr .v-list-item__icon:first-child{
+  margin-right:5px !important;
+}
+.layout.multi-select.justify-left{
+  height:40px;
+}
+.theme--light.v-sheet{
+  border-radius:10px;
+}
+.layout{
+  min-width:10px !important
+}
