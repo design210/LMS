@@ -45,7 +45,7 @@ const router = new VueRouter({
 		},
 		//강의 관리 : 개설
 		{
-			path: '/lecture/lectureopen',
+			path: '/lecture/lectureopen/:id',
 			name: 'lectureopen',
 			components: {
 				ui,
@@ -62,6 +62,17 @@ const router = new VueRouter({
 				ui,
 				top,
 				contents: () => import('@/views/lecture/SignUpLecture.vue'),
+			},
+			meta: { idx: '4' },
+		},
+		//수강현황 - 수강중 강의 : 수강현황
+		{
+			path: '/lecture/signuplecture/status/:id',
+			name: 'signuplecture_status',
+			components: {
+				ui,
+				top,
+				contents: () => import('@/views/lecture/SignUpLectureDetail.vue'),
 			},
 			meta: { idx: '4' },
 		},
@@ -87,6 +98,17 @@ const router = new VueRouter({
 			},
 			meta: { idx: '4' },
 		},
+		//수강현황 - 종료된 강의 : 결과보기
+		{
+			path: '/lecture/endlecture/status/:id',
+			name: 'endlecture_result',
+			components: {
+				ui,
+				top,
+				contents: () => import('@/views/lecture/EndLectureDetail.vue'),
+			},
+			meta: { idx: '4' },
+		},
 		//내강의실 강의목록
 		{
 			path: '/lecturelist',
@@ -106,6 +128,17 @@ const router = new VueRouter({
 				ui,
 				top,
 				contents: () => import('@/views/myLecture/ChaptorList.vue'),
+			},
+			meta: { idx: '5' },
+		},
+		//내강의실 챕터 상세보기
+		{
+			path: '/chaptorlist/detail/:id',
+			name: 'chaptordetail',
+			components: {
+				ui,
+				top,
+				contents: () => import('@/views/myLecture/ChaptorDetail.vue'),
 			},
 			meta: { idx: '5' },
 		},
@@ -142,17 +175,6 @@ const router = new VueRouter({
 			},
 			meta: { idx: '9' },
 		},
-		//내 정보
-		{
-			path: '/myinfo',
-			name: 'myinfo',
-			components: {
-				ui,
-				top,
-				contents: () => import('@/views/info/MyInfo.vue'),
-			},
-			meta: { idx: '10' },
-		},
 		//404
 		{
 			path: '*',
@@ -185,25 +207,25 @@ router.beforeEach(async (to, from, next) => {
 		const response = await accessTokenCheck();
 		if (response.data === 'authCheck success') {
 			console.log('유효성체크 확인');
+			//권한설정
+			const grant = getUserGrant();
+			const uiGrant = getUiGrant();
+			if (to.name !== 'login' && uiGrant !== null) {
+				const powerIdx = uiGrant.split(',');
+				let pageIdx = to.meta.idx;
+				if (powerIdx.includes(pageIdx)) {
+					return next();
+				} else {
+					if (grant == 3) {
+						return next('/lecturelist');
+					} else {
+						return next('/lecture/lecturelist');
+					}
+				}
+			}
 		} else {
 			console.log('유효성체크 실패');
 			await refreshToken();
-		}
-	}
-	//권한설정
-	const grant = getUserGrant();
-	const uiGrant = getUiGrant();
-	if (to.name !== 'login' && uiGrant !== null) {
-		const powerIdx = uiGrant.split(',');
-		let pageIdx = to.meta.idx;
-		if (powerIdx.includes(pageIdx)) {
-			return next();
-		} else {
-			if (grant == 3) {
-				return next('/lecturelist');
-			} else {
-				return next('/lecture/lecturelist');
-			}
 		}
 	}
 

@@ -14,6 +14,8 @@
 			:oriUserProp="oriUser"
 			:department="department"
 			:designation="designation"
+			:label1="title1"
+			:label2="title2"
 		></search-module>
 	</div>
 </template>
@@ -43,6 +45,8 @@ export default {
 			adminCheckYN: false,
 			employeeCheckYN: false,
 			compare: false,
+			title1: '미수강생',
+			title2: '수강생',
 		};
 	},
 	computed: {
@@ -53,6 +57,8 @@ export default {
 			const companyIdx = getCompanyIdx();
 			bus.$emit('start:spinner');
 			await this.$store.dispatch('grantStore/GRANTUSERS', companyIdx);
+			await this.$store.dispatch('grantStore/GETDEPARTMENT', companyIdx);
+			await this.$store.dispatch('grantStore/GETDESIGNATION', companyIdx);
 			bus.$emit('end:spinner');
 			let userIdx = [];
 			this.grantUserAll.forEach(value => {

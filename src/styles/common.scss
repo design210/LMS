@@ -11,6 +11,9 @@ input[type=text],input[type=password]{
     color:#ddd
   }
 }
+iframe{
+  margin: 0 !important
+}
 button{
   border:0;
 }
@@ -219,7 +222,35 @@ caption{
     background: rgb(63, 90, 207) !important;
   }
 }
-
+.i-not{
+  color:#fff;
+  background: #5c6066;
+  border-radius:3px;
+  text-align: center;
+  width:46px;
+  height:23px;
+  line-height:23px;
+}
+.i-ing{
+  color:#fff;
+  background: #387ee6;
+  border-radius:3px;
+  padding:0 5px;
+  text-align: center;
+  width:46px;
+  height:23px;
+  line-height:23px;
+}
+.i-end{
+  color:#fff;
+  background: #fa7b27;
+  border-radius:3px;
+  padding:0 5px;
+  text-align: center;
+  width:46px;   
+  height:23px;
+  line-height:23px;   
+}
 
 //vuetify custom
 .v-select__selections{
@@ -310,3 +341,32 @@ height:9px;
 .layout{
   min-width:10px !important
 }
+.date-group .v-label{display:none !important}
+.date-group .v-text-field > .v-input__control > .v-input__slot{margin-bottom:0;}
+.date-group .v-text-field > .v-input__control > .v-input__slot:before,.date-group .v-text-field > .v-input__control > .v-input__slot:after{border:0}
+.date-group .v-text-field input{max-height:40px;width:200px;padding:0 10px;}
+.date-group .v-text-field input:read-only::placeholder{color:rgb(224, 224, 224)}
+.date-group .v-icon.v-icon{margin-top:8px}
+.v-date-picker-header__value button{font-size:2.4rem}
+.v-application--is-ltr .v-expansion-panel-header{padding:0 20px}
+.v-card.v-sheet.theme--light{margin-top:0 !important}
+.diffculty .v-select__slot .v-label {	z-index: 3 !important;font-size:1.5rem;top:11px;}
+.v-menu__content{z-index:12;}
+.select-width.height .v-select__selections {
+  height:40px;
+    overflow: hidden;
+    padding:0;
+    position:absolute;
+    top:0;
+    left:0;
+}
+.select-width.height .v-select__slot{height:40px !important;position:relative;width:300px;}
+.select-width.height .v-select__slot label{z-index:10;top:12px;}
+.select-width.height .v-input__append-inner{margin-top:9px}
+.select-width.height .v-select__selection{font-size:1.5rem;}
+.search .v-input__slot::before{border:0 !important}
+.search .v-input__slot input,.search .v-input__slot label{padding:0 10px !important}
+.date-group .v-input__prepend-inner{margin-top:6px !important}
+.date-group .v-text-field__slot {height:40px !important}
+.date-group .v-text-field__slot input{border: 0 !important; background: none !important;}
+

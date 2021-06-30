@@ -4,17 +4,26 @@
 			><span>{{ resourceData.lo_subject }}</span>
 		</v-card-title>
 		<div class="closeButton" @click="closePopup()"><v-icon color="#fff">mdi-close-thick</v-icon></div>
-		<div class="v-application">
+		<!-- <div class="v-application">
 			<v-progress-linear buffer-value="0" stream :value="videoRate"></v-progress-linear>
 			<v-progress-linear color="accent" :value="videoRate" height="25">
 				<strong>{{ Math.ceil(videoRate) }}%</strong>
 			</v-progress-linear>
-		</div>
-		<v-card-text v-if="catenodiViewFlag">
-			<iframe width="970" height="546" :src="catenoidUrl" frameborder="0"></iframe>
+		</div> -->
+		<v-card-text v-if="catenodiViewFlag" style="" class="catenoid">
+			<iframe
+				width="900"
+				height="450"
+				:src="catenoidUrl"
+				frameborder="0"
+				allowfullscreen
+				webkitallowfullscreen
+				mozallowfullscreen
+				data-gtm-yt-inspected-1_25="true"
+			></iframe>
 		</v-card-text>
 		<v-card-text v-if="htmlViewFlag" class="cp">
-			<iframe id="cp" width="970" height="546" :src="htmlUrl" frameborder="0"></iframe>
+			<iframe id="cp" width="1000" height="650" :src="htmlUrl" frameborder="0"></iframe>
 		</v-card-text>
 		<v-card-text v-if="pdfViewFlag">
 			<pdf
@@ -26,8 +35,8 @@
 				@loaded="loadPdfHandler"
 			></pdf>
 		</v-card-text>
-		<v-card-actions class="popup-footer">
-			<div v-if="pdfViewFlag">
+		<v-card-actions class="popup-footer" v-if="pdfViewFlag">
+			<div>
 				<v-btn @click="changePdfPage(0)" class="turn" :class="{ grey: currentPage == 1 }">
 					<v-icon>mdi-check-bold</v-icon>
 					<span style="font-size: 15px">이전</span>
@@ -38,10 +47,6 @@
 					<span style="font-size: 15px">다음</span>
 				</v-btn>
 			</div>
-			<v-btn class="" @click="closePopup()">
-				<v-icon>mdi-check-bold</v-icon>
-				<span style="font-size: 15px">닫기</span>
-			</v-btn>
 		</v-card-actions>
 	</div>
 </template>
@@ -50,11 +55,11 @@
 import loading from '@/mixins/loading';
 import pdf from 'vue-pdf';
 import { mapGetters } from 'vuex';
-import { getLectureIdx } from '@/utils/cookies';
 export default {
 	mixins: [loading],
 	props: {
-		chaptorIdx: String,
+		chaptorIdx: Number,
+		lectureIdx: String,
 	},
 	components: {
 		pdf,
@@ -83,7 +88,7 @@ export default {
 	},
 	async mounted() {
 		try {
-			this.myLectureIdx = getLectureIdx();
+			this.myLectureIdx = this.lectureIdx;
 			this.resourceCode = this.chaptorIdx;
 			await this.$store.dispatch('resourceStore/RESOURCEDATA', this.resourceCode);
 			let source = this.resourceData.resources[0];
@@ -174,6 +179,12 @@ export default {
 };
 </script>
 <style scopeds>
+.catenoid {
+	padding: 20px !important;
+}
+.cp {
+	padding: 0 !important;
+}
 /* Modal */
 iframe {
 	border: 0;
@@ -224,6 +235,7 @@ iframe {
 	color: #ffffff;
 	font-weight: bold;
 	font-size: 17px !important;
+	padding-left: 20px !important;
 }
 .popup-footer {
 	position: absolute;

@@ -1,6 +1,7 @@
 <template>
 	<div class="side-bar">
-		<div class="logo"><router-link to="/main">Letuin</router-link></div>
+		<div class="logo" v-if="userGrant == 3"><router-link to="/lecturelist">Letuin</router-link></div>
+		<div class="logo" v-else><router-link to="/lecture/lecturelist">Letuin</router-link></div>
 		<nav>
 			<ul>
 				<li v-if="grantPower.indexOf(1) !== -1">
@@ -20,10 +21,6 @@
 						><span class="icon"><v-icon>mdi-presentation-play</v-icon></span
 						>강의 관리<span class="arrow"></span
 					></router-link>
-					<!-- <ul class="depths2">
-						<li><router-link to="/lecture/lecturelist">강의 목록</router-link></li>
-						<li><router-link to="/lecture/lecturescrap">스크랩 강의</router-link></li>
-					</ul> -->
 				</li>
 				<li class="init-depths" v-if="grantPower.indexOf(4) !== -1">
 					<a href="javascript:;" class="depths1"
@@ -62,7 +59,6 @@
 					<ul class="depths2">
 						<li><router-link to="/employeeinfo">직원 목록</router-link></li>
 						<li><router-link to="/admininfo">운영자 관리</router-link></li>
-						<!-- <li><router-link to="/">수강생그룹 관리</router-link></li> -->
 					</ul>
 				</li>
 				<li class="init-depths" v-if="grantPower.indexOf(9) !== -1">
@@ -75,12 +71,6 @@
 						<li></li>
 					</ul>
 				</li>
-				<li v-if="grantPower.indexOf(10) !== -1">
-					<router-link to="/myinfo"
-						><span class="icon"><v-icon>mdi-account-box-outline</v-icon></span
-						>내정보<span class="arrow"></span
-					></router-link>
-				</li>
 			</ul>
 		</nav>
 	</div>
@@ -88,13 +78,14 @@
 
 <script>
 import $ from 'jquery';
-import { getGrantList } from '@/utils/cookies';
+import { getGrantList, getUserGrant } from '@/utils/cookies';
 import { getPopupOpt } from '@/utils/popup';
 import readyPopup from '@/components/popup/readyPopup.vue';
 export default {
 	data() {
 		return {
 			grantPower: '',
+			userGrant: null,
 		};
 	},
 	mounted() {
@@ -102,6 +93,7 @@ export default {
 		var afterStr = grantList.split(',');
 		const uiSet = afterStr.map(x => parseFloat(x));
 		this.grantPower = uiSet;
+		this.userGrant = getUserGrant();
 		//메뉴동작 script
 		$(function () {
 			var depths1 = $('nav > ul > li > a');

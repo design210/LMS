@@ -2,16 +2,16 @@
 	<section class="search-group">
 		<div class="filter-group">
 			<v-btn dark class="ml5 btn-filter"><v-icon>mdi-filter-outline</v-icon></v-btn>
-			<input v-model="searchWord" type="text" class="ml5 search-input" />
+			<input v-model="searchWord" type="text" class="ml5 search-input" placeholder="이름을 검색하세요" />
 			<v-btn color="btn-search" dark class="person-search ml5"><v-icon>mdi-magnify</v-icon></v-btn>
 		</div>
 		<div class="search-opt-wrap v-application">
 			<div><v-btn x-small color="primary" dark class="opt-close">선택완료</v-btn></div>
-			<h3>부서 <v-btn x-small color="success" dark class="part-all">전체보기</v-btn></h3>
+			<h3>부서 <v-btn x-small color="success" dark class="part-all">초기화</v-btn></h3>
 			<div class="search-options team mt5">
 				<span v-for="(item, index) in departmentData" :key="index">{{ item }}</span>
 			</div>
-			<h3 class="mt20">직급 <v-btn x-small color="success" dark class="pos-all">전체보기</v-btn></h3>
+			<h3 class="mt20">직급 <v-btn x-small color="success" dark class="pos-all">초기화</v-btn></h3>
 			<div class="search-options position mt5">
 				<span v-for="(item, index) in designationData" :key="index">{{ item }}</span>
 			</div>

@@ -9,16 +9,15 @@
 			<v-icon>mdi-account-box-multiple</v-icon>
 		</div>
 		<div class="contents-container">
-			<!-- <div @click="downloadExcel">엑셀</div> -->
 			<div class="white-shadow-box-round">
 				<div class="top-wrap">
 					<div class="total">
 						총 <span>{{ this.totalCount }}</span
 						>명
 					</div>
-					<!--search-kind @selectKind="kind" @initkeyword="keyword" @onClick="click"></search-kind-->
-					<v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
-					<!--v-btn color="btn-search" dark class="ml5" @click="emitClick"><v-icon>mdi-magnify</v-icon></v-btn-->
+					<div class="search">
+						<v-text-field v-model="search" append-icon="mdi-magnify" label="검색해 주세요" single-line hide-details></v-text-field>
+					</div>
 				</div>
 				<v-data-table :headers="headers" :items="desserts" :items-per-page="15" class="indexList" :search="search" id="account-statistic-table">
 				</v-data-table>
@@ -28,14 +27,13 @@
 </template>
 
 <script>
-import XLSX from 'xlsx';
 import { getCompanyIdx } from '@/utils/cookies';
-import { timestampToyymmdd } from '@/utils/common';
+import { timestampToyymmdd } from '@/utils/stamp';
 import { mapGetters } from 'vuex';
 import bus from '@/utils/bus';
 export default {
 	computed: {
-		...mapGetters('employeeStore', ['employeeData']),
+		...mapGetters('grantStore', ['grantUserAll']),
 	},
 	data() {
 		return {
@@ -47,27 +45,28 @@ export default {
 					align: 'start',
 					//sortable: false,
 					value: 'name',
+					width: '9%',
 				},
-				{ text: '아이디', value: 'userId' },
-				{ text: '부서', value: 'department.title' },
-				{ text: '직급', value: 'designation.title' },
-				{ text: '생년월일', value: 'birth' },
-				{ text: '이메일주소', value: 'email' },
-				{ text: '휴대폰번호', value: 'phone' },
-				{ text: '입사일', value: 'joinDate' },
+				{ text: '아이디', value: 'userId', width: '10%' },
+				{ text: '부서', value: 'department.title', width: '15%' },
+				{ text: '직급', value: 'designation.title', width: '9%' },
+				{ text: '생년월일', value: 'birth', width: '11%' },
+				{ text: '이메일주소', value: 'email', width: '21%' },
+				{ text: '휴대폰번호', value: 'phone', width: '14%' },
+				{ text: '입사일', value: 'joinDate', width: '11%' },
 			],
 			desserts: [],
 		};
 	},
 	async mounted() {
 		try {
-			await this.$store.dispatch('employeeStore/EMPLOYEEDATA', getCompanyIdx());
+			await this.$store.dispatch('grantStore/GRANTUSERS', getCompanyIdx());
 			bus.$emit('end:spinner');
-			this.desserts = this.employeeData.map(e => {
+			this.desserts = this.grantUserAll.map(e => {
 				e.joinDate = String(timestampToyymmdd(e.joinDate, 'yyyy-mm-dd'));
 				return e;
 			});
-			this.totalCount = this.employeeData.length;
+			this.totalCount = this.grantUserAll.length;
 		} catch (error) {
 			console.log(error);
 		}
@@ -82,18 +81,17 @@ export default {
 		click() {
 			alert('버튼 클릭 액션');
 		},
-		downloadExcel() {
-			document.querySelector('table').id = 'Excel';
-			var excelData = XLSX.utils.table_to_sheet(document.getElementById('Excel')); // table id를 넣어주면된다
-			var workBook = XLSX.utils.book_new(); // 새 시트 생성
-			XLSX.utils.book_append_sheet(workBook, excelData, '직원 목록'); // 시트 명명, 데이터 지정
-			XLSX.writeFile(workBook, 'employee_list.xlsx'); // 엑셀파일 만듬
-		},
 	},
 };
 </script>
 
 <style lang="scss" scoped>
+.search {
+	width: 400px;
+	& input {
+		padding: 0 10px !important;
+	}
+}
 .v-data-table::v-deep th {
 	font-size: 14px !important;
 }

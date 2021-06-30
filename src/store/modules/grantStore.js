@@ -1,5 +1,15 @@
 import { getUserGrant, saveGrantList, getCompanyIdx } from '@/utils/cookies';
-import { getGrantUsers, setGrantUsers, setGrantPowerUsers, setGrant, delGrant, getDepartment, getDesignation, getGrantAdmin } from '@/api/info';
+import {
+	getGrantUsers,
+	setGrantUsers,
+	setGrantPowerUsers,
+	setGrant,
+	delGrant,
+	getDepartment,
+	getDesignation,
+	getGrantAdmin,
+	getUserInfo,
+} from '@/api/info';
 
 var isEmpty = function (val) {
 	if (val === '' || val === null || val === undefined || (val !== null && typeof val === 'object' && !Object.keys(val).length)) {
@@ -18,6 +28,7 @@ const grantStore = {
 		grantList: [],
 		department: [],
 		designation: [],
+		userInfo: [],
 	},
 	getters: {
 		grantUserAll: state => {
@@ -40,6 +51,9 @@ const grantStore = {
 		},
 		designation: state => {
 			return state.designation;
+		},
+		userInfo: state => {
+			return state.userInfo;
 		},
 	},
 	mutations: {
@@ -66,6 +80,9 @@ const grantStore = {
 		},
 		getDesignation(state, info) {
 			state.designation = info;
+		},
+		getUserInfo(state, info) {
+			state.userInfo = info;
 		},
 	},
 	actions: {
@@ -198,6 +215,17 @@ const grantStore = {
 					designation.push(element.title);
 				});
 				commit('getDesignation', designation);
+				return true;
+			} catch (error) {
+				console.log(error);
+				return false;
+			}
+		},
+		//유저 개인정보 호출
+		async USERINFO({ commit }, idx) {
+			try {
+				const { data } = await getUserInfo(idx);
+				commit('getUserInfo', data);
 				return true;
 			} catch (error) {
 				console.log(error);

@@ -1,7 +1,7 @@
 <template>
 	<div class="login-container">
 		<div class="login-box">
-			<h1>회원 로그인</h1>
+			<h1><img src="@/assets/logo_expert.png" alt="logo" class="logo" /> 회원 로그인</h1>
 			<form @submit.prevent="submitLogin">
 				<div class="mt20">
 					<input type="text" v-model="username" placeholder="아이디를 입력하세요." />
@@ -83,6 +83,11 @@ export default {
 		width: 400px;
 		& h1 {
 			text-align: center;
+			& .logo {
+				width: 80px;
+				vertical-align: 0px;
+				margin-right: 10px;
+			}
 		}
 		& input {
 			height: 45px !important;

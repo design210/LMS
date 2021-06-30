@@ -28,7 +28,7 @@ const messages = {
 				lastPage: '마지막 페이지',
 				pageText: '{2} 중 {0}-{1}',
 			},
-			noDataText: '게시물이 없습니다.',
+			noDataText: '데이터가 없습니다.',
 			datePicker: {
 				itemsSelected: '날짜선택 완료',
 				nextMonthAriaLabel: '다음 달',

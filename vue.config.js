@@ -1,3 +1,4 @@
+//const TerserPlugin = require('terser-webpack-plugin');
 module.exports = {
 	lintOnSave: false,
 	transpileDependencies: ['vuetify'],
@@ -19,7 +20,11 @@ module.exports = {
 			.use('file-loader')
 			.loader('file-loader');
 	},
-	configureWebpack: {
-		devtool: 'source-map',
-	},
+	// configureWebpack: config => {
+	// 	'source-map',
+	// 		(config.optimization = {
+	// 			minimize: true,
+	// 			minimizer: [new TerserPlugin({ terserOptions: { ecma: 6, compress: { drop_console: true }, output: { comments: false } } })],
+	// 		});
+	// },
 };

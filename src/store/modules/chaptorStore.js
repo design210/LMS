@@ -1,33 +1,35 @@
-import { getUserLecture } from '@/api/lecture';
+import { getLectureInfo, getUserLecture } from '@/api/lecture';
 const chaptorStore = {
 	namespaced: true,
 	state: {
-		chaptorList: [],
-		chaptorData: {},
+		chaptorsList: {},
+		chaptors: {},
 	},
 	getters: {
-		chaptorList: state => {
-			return state.chaptorList;
+		chaptorsList: state => {
+			return state.chaptorsList;
 		},
-		chaptorData: state => {
-			return state.chaptorData;
+		chaptors: state => {
+			return state.chaptors;
 		},
 	},
 	mutations: {
-		setChaptorList(state, chaptorList) {
-			//챕터 리스트 데이터
-			state.chaptorList = chaptorList;
+		setChaptorList(state, cahptorData) {
+			state.chaptorsList = cahptorData;
 		},
-		setChaptorData(state, chaptorData) {
-			//챕터 전체 통합 정보
-			state.chaptorData = chaptorData;
+		setChaptor(state, data) {
+			state.chaptors = data;
 		},
 	},
 	actions: {
 		async CHAPTORLIST({ commit }, idx) {
+			const { data } = await getLectureInfo(idx);
+			commit('setChaptorList', data);
+			return data;
+		},
+		async CHAPTOR({ commit }, idx) {
 			const { data } = await getUserLecture(idx);
-			commit('setChaptorList', data.chapters);
-			commit('setChaptorData', data);
+			commit('setChaptor', data);
 			return data;
 		},
 	},

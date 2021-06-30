@@ -15,7 +15,7 @@
 			<section class="employee-list">
 				<div class="employee-info">
 					<span
-						>전체<span class="employee-num">{{ notAdmins.length }}</span
+						>{{ labelRe1 }} <span class="employee-num">{{ notAdmins.length }}</span
 						>명</span
 					>
 					<div class="v-application"><v-checkbox v-model="employeeCheckAll" label="전체선택" color="indigo darken-3 all"></v-checkbox></div>
@@ -31,13 +31,13 @@
 				</ul>
 			</section>
 			<div class="control">
-				<div class="add" @click="add"><v-icon color="#23a4ef">mdi-arrow-right-thin-circle-outline</v-icon></div>
-				<div class="remove" @click="remove"><v-icon color="#bcbcbc">mdi-arrow-left-thin-circle-outline</v-icon></div>
+				<div class="add" @click="add"><v-icon class="data-move">mdi-arrow-right-thin-circle-outline</v-icon></div>
+				<div class="remove" @click="remove"><v-icon class="data-move">mdi-arrow-left-thin-circle-outline</v-icon></div>
 			</div>
 			<section class="admin-list">
 				<div class="admin-info">
 					<span
-						>전체<span class="admin-num">{{ admins.length }}</span
+						>{{ labelRe2 }} <span class="admin-num">{{ admins.length }}</span
 						>명</span
 					>
 					<div class="v-application"><v-checkbox v-model="adminCheckAll" label="전체선택" color="indigo darken-3 all"></v-checkbox></div>
@@ -53,21 +53,6 @@
 				</ul>
 			</section>
 		</div>
-		<!-- 테스트
-		<div>관리자 설정 변경된 아아디 값 : {{ power }}</div>
-		<div>일반유저 아이디 값 : {{ user }}</div>
-		<div>관리자에 추가된 아이디 :{{ addPowerUserIdx }}</div>
-		<div>유저에 추가된 아이디 :{{ addUserIdx }}</div>
-		<div>관리자 고정값: {{ adminOrigin }}</div>
-		<div>사용자 고정값: {{ userOrigin }}</div>
-		<div>팀 {{ departmentOrigin }}</div>
-		<div>부서 {{ designationOrigin }}</div> -->
-		<!-- <div>부서 :{{ searchPosition }}</div>
-		<div>직급 :{{ searchTeam }}</div> -->
-		<!-- <div>직원 선택 : {{ employee }}</div>
-		<div>관리자 선택 : {{ administrator }}</div>
-		<div>직원 전체 선택 : {{ employeeCheckAll }}</div>
-		<div>관리자 전체 선택 : {{ adminCheckAll }}</div> -->
 	</div>
 </template>
 
@@ -86,6 +71,8 @@ export default {
 		oriUserProp: Array,
 		department: Array,
 		designation: Array,
+		label1: String,
+		label2: String,
 	},
 	data() {
 		return {
@@ -101,6 +88,12 @@ export default {
 		};
 	},
 	computed: {
+		labelRe1() {
+			return this.label1;
+		},
+		labelRe2() {
+			return this.label2;
+		},
 		notAdmins() {
 			return this.notAdminsData;
 		},
@@ -206,9 +199,14 @@ export default {
 					});
 				}
 			});
+
 			let difference = _this.power.filter(x => !_this.adminOrigin.includes(x));
 			_this.addPowerUserIdx = difference;
 			_this.addAdmins(difference);
+
+			setTimeout(function () {
+				_this.afterMoveReset();
+			}, 100);
 		},
 		remove() {
 			const _this = this;
@@ -239,6 +237,18 @@ export default {
 			let difference = _this.user.filter(x => !_this.userOrigin.includes(x));
 			_this.addUserIdx = difference;
 			_this.addUsers(difference);
+
+			setTimeout(function () {
+				_this.afterMoveReset();
+			}, 100);
+		},
+		afterMoveReset() {
+			$('.search-input').val('');
+			$('.employee-list li').removeClass('hidden');
+			$('.employee-list li').addClass('active');
+			var numItems = $('.employee-list li.active').length;
+			$('.employee-list .employee-num').text(numItems);
+			$('.employee-info .v-input').show();
 		},
 		emitPower(data) {
 			this.$emit('powerData', data);
@@ -342,6 +352,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.data-move {
+	font-size: 3rem;
+	color: #bcbcbc;
+	&:hover {
+		color: #23a4ef;
+	}
+}
 .power-wrap {
 	display: flex;
 	& .employee-list {

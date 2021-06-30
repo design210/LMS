@@ -9,7 +9,6 @@ export function setInterceprors(instance, data) {
 			config.headers['Content-Type'] = 'application/json; charset=utf-8';
 			config.headers['Authorization'] = 'Bearer ' + accessCookie;
 			config.data = data;
-			console.log(data);
 			return config;
 		},
 		function (error) {

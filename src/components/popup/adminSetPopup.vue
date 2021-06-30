@@ -19,17 +19,14 @@
 					:oriUserProp="oriUser"
 					:department="department"
 					:designation="designation"
+					:label1="title"
+					:label2="title"
 				></search-module>
 			</template>
 			<template slot="footer">
 				<div class="v-application btn-pop mt40">
 					<v-btn @click="close" class="mr5">취소</v-btn>
 					<v-btn color="primary" @click="powerSave">저장</v-btn>
-				</div>
-				<div class="v-application">
-					<v-overlay :absolute="absolute" :value="overlay">
-						<v-btn color="success" @click="closeSave"> 저장 되었습니다. </v-btn>
-					</v-overlay>
 				</div>
 			</template>
 		</defaultPopup>
@@ -62,6 +59,7 @@ export default {
 			adminCheckYN: false,
 			employeeCheckYN: false,
 			compare: false,
+			title: '전체',
 		};
 	},
 	computed: {
@@ -127,6 +125,7 @@ export default {
 			this.notAdmins = this.grantUserLevel3;
 			this.reset = !this.reset;
 			this.overlay = !this.overlay;
+			this.closeSave();
 		},
 		employeeCheck(data) {
 			if (data === 'none') {

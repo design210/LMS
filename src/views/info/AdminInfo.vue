@@ -15,7 +15,7 @@
 						총 <span>{{ userNum }}</span
 						>명
 					</div>
-					<search-name @initkeyword="keyword" @onClick="click"></search-name>
+					<search-name @initkeyword="keyword" @onClick="click" :placeholderProp="placeholder"></search-name>
 				</div>
 				<div class="btn-group">
 					<v-btn color="blue" dark @click="showModalPopup"> 운영자 추가/삭제 </v-btn>
@@ -71,6 +71,7 @@ export default {
 			userInfo: [],
 			userNum: '',
 			noData: false,
+			placeholder: '이름을 입력하세요',
 		};
 	},
 	watch: {

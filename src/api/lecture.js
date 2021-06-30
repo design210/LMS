@@ -1,11 +1,29 @@
 import { createInstanceWithAuth } from './index';
 
-//개인별 강좌 리스트 호출
+//개인별 강좌 리스트 전체 호출
 function getUserLectureList() {
 	return createInstanceWithAuth('/my_lecture/all', {}, {}).get();
 }
-//개인별 강좌 / 차시리스트 호출
+
+//개인별 강좌 리스트 한개 호출
 function getUserLecture(idx) {
+	return createInstanceWithAuth('/my_lecture/' + idx, {}, {}).get();
+}
+
+//개인별 강좌 리스트 필터 포함
+function getUserLectureFilterList(pages) {
+	let param = {
+		page: pages.page,
+		paginate: pages.paginate,
+		search: btoa(unescape(encodeURIComponent(pages.search))),
+		status: pages.status,
+		order: pages.order,
+	};
+	return createInstanceWithAuth('/my_lecture/all/pagination', {}, param).get();
+}
+
+//강의 상세 : chaptor List
+function getLectureInfo(idx) {
 	return createInstanceWithAuth('/lecture/info/' + idx, {}, {}).get();
 }
 
@@ -47,15 +65,6 @@ function getLecture(data) {
 	return createInstanceWithAuth('/user/lecture/' + data.idx, param, {}).post();
 }
 
-//강좌 개설하기 OPEN
-function getLectureOpen(param) {
-	return createInstanceWithAuth('/my_lecture/', param, {}).post();
-}
-
-//강의 상세
-function getLectureInfo(idx) {
-	return createInstanceWithAuth('/lecture/info/' + idx, {}, {}).get();
-}
 //대표 강사 정보
 function getLectureTutors(idx) {
 	return createInstanceWithAuth('/lecture/tutor/' + idx, {}, {}).get();
@@ -88,18 +97,18 @@ function getLectureCategories() {
 
 export {
 	getUserLectureList,
-	getUserLecture,
 	getUserChapter,
 	catenodiUrl,
 	getLectureAll,
 	getLectureScraping,
 	getLecture,
 	getLectureScrapList,
-	getLectureOpen,
 	getLectureInfo,
 	getLectureTutors,
 	getLectureVideoRate,
 	htmlUrl,
 	getLectureManageList,
 	getLectureCategories,
+	getUserLectureFilterList,
+	getUserLecture,
 };

@@ -11,9 +11,6 @@
 					<v-checkbox v-model="idxSet" :value="item.idx" :label="item.name" class="ck-indigo"></v-checkbox>
 				</li>
 			</ul>
-			<!-- <div>설정값 : {{ idxSet }}</div>
-			<div>미설정 값 : {{ powerDel }}</div>
-			<div>기존값 : {{ idxOri }}</div> -->
 		</template>
 		<template slot="footer">
 			<div class="v-application btn-pop mt40">

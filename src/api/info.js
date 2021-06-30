@@ -1,9 +1,12 @@
 import { createInstanceWithAuth } from './index';
-//직원 리스트 호출론트_직원관리
-function getEmployeeList(companyIdx) {
+//Grant 유저 전체 정보 호출
+function getGrantUsers(companyIdx) {
 	return createInstanceWithAuth('/company/infoWithUsers/' + companyIdx, {}, {}).get();
 }
-
+//유저 개인 정보 호출
+function getUserInfo(idx) {
+	return createInstanceWithAuth('/user/info/' + idx.idx, {}, {}).get();
+}
 //회사 정보 호출
 function getCompanyInfo(companyIdx) {
 	return createInstanceWithAuth('/company/info/' + companyIdx, {}, {}).get();
@@ -13,11 +16,6 @@ function getCompanyInfo(companyIdx) {
 function getGrantAdmin(idx) {
 	const param = { company_idx: idx[0] };
 	return createInstanceWithAuth('/grant/grant_role/' + idx[1], param, {}).get();
-}
-
-//Grant 유저 정보 호출
-function getGrantUsers(companyIdx) {
-	return createInstanceWithAuth('/company/infoWithUsers/' + companyIdx, {}, {}).get();
 }
 
 //Grant 팀 정보 호출
@@ -48,7 +46,6 @@ function delGrant(data) {
 }
 
 export {
-	getEmployeeList,
 	getCompanyInfo,
 	getGrantUsers,
 	setGrantUsers,
@@ -58,4 +55,5 @@ export {
 	getDepartment,
 	getDesignation,
 	getGrantAdmin,
+	getUserInfo,
 };

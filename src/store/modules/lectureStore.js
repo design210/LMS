@@ -5,11 +5,11 @@ import {
 	getLectureScraping,
 	getLectureScrapList,
 	getLecture,
-	getLectureOpen,
 	getLectureTutors,
 	getLectureVideoRate,
 	getLectureManageList,
 	getLectureCategories,
+	getUserLectureFilterList,
 } from '@/api/lecture';
 const lectureStore = {
 	namespaced: true,
@@ -26,6 +26,7 @@ const lectureStore = {
 		lectureVideoRateResult: [],
 		lectureManageList: [],
 		lectureCategories: [],
+		userLectureFilterList: [],
 	},
 	getters: {
 		myLectureList: state => {
@@ -63,6 +64,9 @@ const lectureStore = {
 		},
 		lectureCategories: state => {
 			return state.lectureCategories;
+		},
+		userLectureFilterList: state => {
+			return state.userLectureFilterList;
 		},
 	},
 	mutations: {
@@ -102,6 +106,9 @@ const lectureStore = {
 		getLectureCategories(state, categories) {
 			state.lectureCategories = categories;
 		},
+		getUserLectureFilterList(state, lectureList) {
+			state.userLectureFilterList = lectureList;
+		},
 	},
 	actions: {
 		async LECTURELIST({ commit }) {
@@ -134,11 +141,6 @@ const lectureStore = {
 			commit('setMyScrapListResult', data);
 			return data;
 		},
-		async LECTURE_OPEN({ commit }, paramData) {
-			const { data } = await getLectureOpen(paramData);
-			commit('setLectureOpenResult', data);
-			return data;
-		},
 		async LECTURE_TUTORS({ commit }, idx) {
 			const { data } = await getLectureTutors(idx);
 			commit('setLectureTutorResult', data);
@@ -157,6 +159,11 @@ const lectureStore = {
 		async LECTURE_CATEGORIES({ commit }, paramData) {
 			const { data } = await getLectureCategories(paramData);
 			commit('getLectureCategories', data);
+			return data;
+		},
+		async LECTURE_FILTER({ commit }, paramData) {
+			const { data } = await getUserLectureFilterList(paramData);
+			commit('getUserLectureFilterList', data);
 			return data;
 		},
 	},
